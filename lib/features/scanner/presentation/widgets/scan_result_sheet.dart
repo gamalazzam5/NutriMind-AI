@@ -1,7 +1,7 @@
+import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/localization/app_localizations.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_radius.dart';
 import '../../../../core/theme/app_text_styles.dart';
@@ -18,7 +18,7 @@ class ScanResultSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
+    final isArabic = context.locale.languageCode == 'ar';
     return Container(
       decoration: BoxDecoration(
         color: const Color(0xFFF3FCF1),
@@ -62,7 +62,7 @@ class ScanResultSheet extends StatelessWidget {
                           children: [
                             Text(
                               result.foodName,
-                              style: AppTextStyles.h2(isArabic: l10n.isArabic),
+                              style: AppTextStyles.h2(isArabic: isArabic),
                             ),
                             SizedBox(height: 4.h),
                             Directionality(
@@ -78,10 +78,10 @@ class ScanResultSheet extends StatelessWidget {
                                         .copyWith(fontSize: 40.sp, fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    l10n.t('scanner_kcal'),
+                                    'scanner_kcal'.tr(),
                                     style: AppTextStyles.bodySmall(
                                       color: const Color(0xFF3D4A3E),
-                                      isArabic: l10n.isArabic,
+                                      isArabic: isArabic,
                                     ),
                                   ),
                                 ],
@@ -97,24 +97,24 @@ class ScanResultSheet extends StatelessWidget {
                   Row(
                     children: [
                       _MacroPill(
-                        label: l10n.t('home_protein'),
+                        label: 'home_protein'.tr(),
                         value: '${result.proteinGrams}g',
                         color: const Color(0xFFFD7958),
-                        isArabic: l10n.isArabic,
+                        isArabic: isArabic,
                       ),
                       SizedBox(width: 12.w),
                       _MacroPill(
-                        label: l10n.t('home_carbs'),
+                        label: 'home_carbs'.tr(),
                         value: '${result.carbsGrams}g',
                         color: const Color(0xFF5D48CA),
-                        isArabic: l10n.isArabic,
+                        isArabic: isArabic,
                       ),
                       SizedBox(width: 12.w),
                       _MacroPill(
-                        label: l10n.t('home_fat'),
+                        label: 'home_fat'.tr(),
                         value: '${result.fatGrams}g',
                         color: const Color(0xFF006D37),
-                        isArabic: l10n.isArabic,
+                        isArabic: isArabic,
                       ),
                     ],
                   ),
@@ -143,10 +143,10 @@ class ScanResultSheet extends StatelessWidget {
                             Icon(Icons.check_circle_rounded, color: Colors.white, size: 20.sp),
                             SizedBox(width: 8.w),
                             Text(
-                              l10n.t('scanner_log_meal'),
+                              'scanner_log_meal'.tr(),
                               style: AppTextStyles.bodyMedium(
                                 color: Colors.white,
-                                isArabic: l10n.isArabic,
+                                isArabic: isArabic,
                               ).copyWith(fontWeight: FontWeight.w600, fontSize: 14.sp),
                             ),
                           ],

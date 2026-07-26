@@ -1,6 +1,10 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/error/failures.dart';
 import '../../domain/entities/chat_message_entity.dart';
+import '../../domain/usecases/send_chat_image_message_usecase.dart';
+import '../../domain/usecases/send_chat_text_message_usecase.dart';
 import 'chat_state.dart';
 
 const _seedMessages = [
@@ -10,25 +14,18 @@ const _seedMessages = [
     text: "Hello! I'm NutriMind AI. How can I help you reach your wellness "
         'goals today?',
   ),
-  ChatMessageEntity(
-    id: 'seed-2',
-    isUser: true,
-    text: 'How much protein is in Greek yogurt?',
-  ),
-  ChatMessageEntity(
-    id: 'seed-3',
-    isUser: false,
-    text: 'A typical 6-ounce (170g) serving of plain, non-fat Greek yogurt '
-        'contains about **15 to 17 grams of protein**.',
-    note: "It's a fantastic, nutrient-dense choice for muscle recovery and "
-        'satiety!',
-  ),
 ];
 
-/// Manages the AI chat conversation. The AI reply is currently mocked;
-/// TODO: wire to the NutriMind AI backend once the chat endpoint is ready.
+/// Manages the AI chat conversation, backed by the `chat-support` n8n
+/// webhook (text -> Gemini, image -> Gemini Vision).
 class ChatCubit extends Cubit<ChatState> {
-  ChatCubit() : super(const ChatState(messages: _seedMessages));
+  ChatCubit(this._sendText, this._sendImage)
+      : _conversationId = DateTime.now().microsecondsSinceEpoch.toString(),
+        super(const ChatState(messages: _seedMessages));
+
+  final SendChatTextMessageUseCase _sendText;
+  final SendChatImageMessageUseCase _sendImage;
+  final String _conversationId;
 
   int _idCounter = 0;
 
@@ -46,19 +43,12 @@ class ChatCubit extends Cubit<ChatState> {
       isAiTyping: true,
     ));
 
-    await Future.delayed(const Duration(milliseconds: 800));
-    if (isClosed) return;
-
-    final reply = ChatMessageEntity(
-      id: 'ai-${_idCounter++}',
-      isUser: false,
-      text: "That's a great question! I'm still learning — full AI-powered "
-          "answers are coming soon.",
+    final result = await _sendText(
+      text: trimmed,
+      conversationId: _conversationId,
     );
-    emit(state.copyWith(
-      messages: [...state.messages, reply],
-      isAiTyping: false,
-    ));
+    if (isClosed) return;
+    _emitReply(result);
   }
 
   Future<void> sendImage(String imagePath) async {
@@ -72,14 +62,17 @@ class ChatCubit extends Cubit<ChatState> {
       isAiTyping: true,
     ));
 
-    await Future.delayed(const Duration(milliseconds: 800));
-    if (isClosed) return;
-
-    final reply = ChatMessageEntity(
-      id: 'ai-${_idCounter++}',
-      isUser: false,
-      text: 'Got your photo! Image-based meal analysis is coming soon.',
+    final result = await _sendImage(
+      imagePath: imagePath,
+      conversationId: _conversationId,
     );
+    if (isClosed) return;
+    _emitReply(result);
+  }
+
+  void _emitReply(Either<Failure, String> result) {
+    final replyText = result.fold((failure) => failure.message, (reply) => reply);
+    final reply = ChatMessageEntity(id: 'ai-${_idCounter++}', isUser: false, text: replyText);
     emit(state.copyWith(
       messages: [...state.messages, reply],
       isAiTyping: false,

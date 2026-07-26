@@ -1,10 +1,10 @@
+import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
 import '../../../../core/di/injection_container.dart';
-import '../../../../core/localization/app_localizations.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_radius.dart';
 import '../../../../core/theme/app_text_styles.dart';
@@ -55,7 +55,7 @@ class _ChatInputBarState extends State<ChatInputBar> {
     widget.onSendImage(file.path);
   }
 
-  Future<void> _toggleListening(AppLocalizations l10n) async {
+  Future<void> _toggleListening(bool isArabic) async {
     if (_isListening) {
       await _speech.stop();
       setState(() => _isListening = false);
@@ -66,7 +66,7 @@ class _ChatInputBarState extends State<ChatInputBar> {
     if (!mounted) return;
     if (!available) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(l10n.t('chat_mic_permission_denied'))),
+        SnackBar(content: Text('chat_mic_permission_denied'.tr())),
       );
       return;
     }
@@ -80,14 +80,14 @@ class _ChatInputBarState extends State<ChatInputBar> {
         if (result.finalResult) setState(() => _isListening = false);
       },
       listenOptions: SpeechListenOptions(
-        localeId: l10n.isArabic ? 'ar_SA' : 'en_US',
+        localeId: isArabic ? 'ar_SA' : 'en_US',
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
+    final isArabic = context.locale.languageCode == 'ar';
     return Container(
       padding: EdgeInsets.fromLTRB(24.w, 0, 24.w, 16.h),
       decoration: BoxDecoration(
@@ -110,7 +110,7 @@ class _ChatInputBarState extends State<ChatInputBar> {
               itemCount: _suggestedQuestionKeys.length,
               separatorBuilder: (_, _) => SizedBox(width: 8.w),
               itemBuilder: (context, index) {
-                final label = l10n.t(_suggestedQuestionKeys[index]);
+                final label = _suggestedQuestionKeys[index].tr();
                 return Material(
                   color: Colors.white,
                   shape: RoundedRectangleBorder(
@@ -126,7 +126,7 @@ class _ChatInputBarState extends State<ChatInputBar> {
                         label,
                         style: AppTextStyles.bodySmall(
                           color: AppColors.textPrimary,
-                          isArabic: l10n.isArabic,
+                          isArabic: isArabic,
                         ),
                       ),
                     ),
@@ -171,16 +171,16 @@ class _ChatInputBarState extends State<ChatInputBar> {
                 Expanded(
                   child: TextField(
                     controller: _controller,
-                    style: AppTextStyles.bodyLarge(isArabic: l10n.isArabic),
-                    textDirection: l10n.isArabic ? TextDirection.rtl : TextDirection.ltr,
+                    style: AppTextStyles.bodyLarge(isArabic: isArabic),
+                    textDirection: isArabic ? TextDirection.rtl : TextDirection.ltr,
                     onSubmitted: (_) => _submit(),
                     decoration: InputDecoration(
                       hintText: _isListening
-                          ? l10n.t('chat_listening')
-                          : l10n.t('chat_input_hint'),
+                          ? 'chat_listening'.tr()
+                          : 'chat_input_hint'.tr(),
                       hintStyle: AppTextStyles.bodyLarge(
                         color: AppColors.textSecondary,
-                        isArabic: l10n.isArabic,
+                        isArabic: isArabic,
                       ),
                       border: InputBorder.none,
                       isCollapsed: true,
@@ -191,7 +191,7 @@ class _ChatInputBarState extends State<ChatInputBar> {
                   color: Colors.transparent,
                   child: InkWell(
                     customBorder: const CircleBorder(),
-                    onTap: () => _toggleListening(l10n),
+                    onTap: () => _toggleListening(isArabic),
                     child: Padding(
                       padding: EdgeInsets.all(8.r),
                       child: Icon(

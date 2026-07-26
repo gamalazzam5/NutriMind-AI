@@ -130,10 +130,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     SizedBox(height: 24.h),
                     GradientButton(
+
                       label: 'Sign Up',
                       onPressed: _signUp,
-                      icon: Icons.arrow_forward_rounded,
-                      iconTrailing: true,
                       gradient: AppColors.signUpGradient,
                     ),
                     SizedBox(height: 24.h),

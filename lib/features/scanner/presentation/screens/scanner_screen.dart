@@ -1,11 +1,11 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/di/injection_container.dart';
-import '../../../../core/localization/app_localizations.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../cubit/scanner_cubit.dart';
@@ -31,14 +31,14 @@ class _ScannerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
+    final isArabic = context.locale.languageCode == 'ar';
     return Scaffold(
       backgroundColor: Colors.black,
       body: BlocConsumer<ScannerCubit, ScannerState>(
         listener: (context, state) {
           if (state is ScannerError) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(l10n.t(state.messageKey))),
+              SnackBar(content: Text(state.messageKey.tr())),
             );
           }
         },
@@ -80,7 +80,7 @@ class _ScannerView extends StatelessWidget {
                             onTap: () => context.read<ScannerCubit>().reset(),
                           ),
                           if (state is ScannerScanning)
-                            _StatusPill(label: l10n.t('scanner_scanning')),
+                            _StatusPill(label: 'scanner_scanning'.tr()),
                           _RoundIconButton(icon: Icons.bolt_rounded, onTap: () {}),
                         ],
                       ),
@@ -91,10 +91,10 @@ class _ScannerView extends StatelessWidget {
                     ),
                     SizedBox(height: 24.h),
                     Text(
-                      l10n.t('scanner_center_food'),
+                      'scanner_center_food'.tr(),
                       style: AppTextStyles.bodyLarge(
                         color: Colors.white.withValues(alpha: 0.8),
-                        isArabic: l10n.isArabic,
+                        isArabic: isArabic,
                       ),
                     ),
                     if (state is ScannerScanning)
@@ -126,7 +126,7 @@ class _ScannerView extends StatelessWidget {
                         result: state.result,
                         onLog: () {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(l10n.t('scanner_meal_logged'))),
+                            SnackBar(content: Text('scanner_meal_logged'.tr())),
                           );
                           context.read<ScannerCubit>().reset();
                         },

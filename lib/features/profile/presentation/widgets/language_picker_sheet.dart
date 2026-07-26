@@ -1,24 +1,19 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/localization/app_localizations.dart';
-import '../../../../core/localization/locale_cubit.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_radius.dart';
 import '../../../../core/theme/app_text_styles.dart';
 
 /// Bottom sheet letting the user switch the app language between English
-/// and Arabic. Selecting an option updates [LocaleCubit] immediately.
+/// and Arabic. Selecting an option updates the app locale immediately via
+/// easy_localization, which persists the choice automatically.
 Future<void> showLanguagePicker(BuildContext context) {
-  final localeCubit = context.read<LocaleCubit>();
   return showModalBottomSheet(
     context: context,
     backgroundColor: Colors.transparent,
-    builder: (sheetContext) => BlocProvider.value(
-      value: localeCubit,
-      child: const _LanguagePickerSheet(),
-    ),
+    builder: (sheetContext) => const _LanguagePickerSheet(),
   );
 }
 
@@ -27,8 +22,8 @@ class _LanguagePickerSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    final currentLocale = context.watch<LocaleCubit>().state;
+    final isArabic = context.locale.languageCode == 'ar';
+    final currentLocale = context.locale;
 
     return Container(
       padding: EdgeInsets.fromLTRB(24.w, 12.h, 24.w, 32.h),
@@ -52,21 +47,20 @@ class _LanguagePickerSheet extends StatelessWidget {
           ),
           SizedBox(height: 20.h),
           Text(
-            l10n.t('profile_language_sheet_title'),
-            style: AppTextStyles.h3(isArabic: l10n.isArabic),
+            'profile_language_sheet_title'.tr(),
+            style: AppTextStyles.h3(isArabic: isArabic),
           ),
           SizedBox(height: 16.h),
-          for (final locale in AppLocalizations.supportedLocales)
+          for (final locale in context.supportedLocales)
             _LanguageOption(
-              label: l10n.t(
-                locale.languageCode == 'ar'
-                    ? 'profile_language_arabic'
-                    : 'profile_language_english',
-              ),
+              label: (locale.languageCode == 'ar'
+                      ? 'profile_language_arabic'
+                      : 'profile_language_english')
+                  .tr(),
               isSelected: locale.languageCode == currentLocale.languageCode,
-              isArabic: l10n.isArabic,
+              isArabic: isArabic,
               onTap: () {
-                context.read<LocaleCubit>().setLocale(locale);
+                context.setLocale(locale);
                 Navigator.of(context).pop();
               },
             ),

@@ -118,8 +118,6 @@ class _LoginScreenState extends State<LoginScreen> {
               GradientButton(
                 label: 'Login',
                 onPressed: _login,
-                icon: Icons.arrow_forward_rounded,
-                iconTrailing: true,
                 gradient: AppColors.ctaGradient,
               ),
               SizedBox(height: 32.h),

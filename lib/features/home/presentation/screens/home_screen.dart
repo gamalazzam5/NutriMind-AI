@@ -1,7 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/localization/app_localizations.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../data/models/macro_model.dart';
@@ -33,32 +33,32 @@ class HomeScreen extends StatelessWidget {
   /// (used when Home is previewed outside the shell).
   final VoidCallback? onScanFoodTap;
 
-  void _showComingSoon(BuildContext context, String label, AppLocalizations l10n) {
+  void _showComingSoon(BuildContext context, String label) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('$label — ${l10n.t('home_coming_soon')}')),
+      SnackBar(content: Text('$label — ${'home_coming_soon'.tr()}')),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
+    final isArabic = context.locale.languageCode == 'ar';
     final macros = [
       MacroModel(
-        label: l10n.t('home_protein'),
+        label: 'home_protein'.tr(),
         current: 75,
         target: 100,
         unit: 'g',
         color: AppColors.macroProtein,
       ),
       MacroModel(
-        label: l10n.t('home_carbs'),
+        label: 'home_carbs'.tr(),
         current: 120,
         target: 240,
         unit: 'g',
         color: AppColors.macroCarbs,
       ),
       MacroModel(
-        label: l10n.t('home_fat'),
+        label: 'home_fat'.tr(),
         current: 40,
         target: 50,
         unit: 'g',
@@ -76,22 +76,22 @@ class HomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               DailySummaryCard(
-                title: l10n.t('home_daily_summary'),
+                title: 'home_daily_summary'.tr(),
                 caloriesConsumed: 1450,
                 calorieTarget: 2200,
-                kcalLabel: l10n.t('scanner_kcal'),
+                kcalLabel: 'scanner_kcal'.tr(),
                 macros: macros,
-                isArabic: l10n.isArabic,
+                isArabic: isArabic,
               ),
               SizedBox(height: 16.h),
               Row(
                 children: [
                   ActionTile(
-                    title: l10n.t('home_scan_food'),
-                    subtitle: l10n.t('home_scan_food_subtitle'),
+                    title: 'home_scan_food'.tr(),
+                    subtitle: 'home_scan_food_subtitle'.tr(),
                     icon: Icons.camera_alt_rounded,
                     iconColor: AppColors.primaryStart,
-                    isArabic: l10n.isArabic,
+                    isArabic: isArabic,
                     gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -101,16 +101,16 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                     onTap: onScanFoodTap ??
-                        () => _showComingSoon(context, l10n.t('home_scan_food'), l10n),
+                        () => _showComingSoon(context, 'home_scan_food'.tr()),
                   ),
                   SizedBox(width: 16.w),
                   ActionTile(
-                    title: l10n.t('home_ask_ai'),
-                    subtitle: l10n.t('home_ask_ai_subtitle'),
+                    title: 'home_ask_ai'.tr(),
+                    subtitle: 'home_ask_ai_subtitle'.tr(),
                     icon: Icons.auto_awesome_rounded,
                     iconColor: const Color(0xFF5D48CA),
                     borderColor: AppColors.lavender.withValues(alpha: 0.3),
-                    isArabic: l10n.isArabic,
+                    isArabic: isArabic,
                     gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -119,27 +119,27 @@ class HomeScreen extends StatelessWidget {
                         const Color(0xFF5D48CA).withValues(alpha: 0.2),
                       ],
                     ),
-                    onTap: () => _showComingSoon(context, l10n.t('home_ask_ai'), l10n),
+                    onTap: () => _showComingSoon(context, 'home_ask_ai'.tr()),
                   ),
                 ],
               ),
-              SizedBox(height: 32.h),
+              SizedBox(height: 16.h),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    l10n.t('home_recent_meals'),
-                    style: AppTextStyles.h2(isArabic: l10n.isArabic),
+                    'home_recent_meals'.tr(),
+                    style: AppTextStyles.h2(isArabic: isArabic),
                   ),
                   TextButton(
                     onPressed: () =>
-                        _showComingSoon(context, l10n.t('home_recent_meals'), l10n),
+                        _showComingSoon(context, 'home_recent_meals'.tr()),
                     child: Text(
-                      l10n.t('home_view_all'),
+                      'home_view_all'.tr(),
                       style: AppTextStyles.bodySmall(
                         color: const Color(0xFF006D37),
-                        isArabic: l10n.isArabic,
+                        isArabic: isArabic,
                       ),
                     ),
                   ),
@@ -154,10 +154,10 @@ class HomeScreen extends StatelessWidget {
                   separatorBuilder: (_, _) => SizedBox(width: 16.w),
                   itemBuilder: (context, index) => MealCard(
                     meal: _recentMeals[index],
-                    kcalLabel: l10n.t('scanner_kcal'),
-                    isArabic: l10n.isArabic,
+                    kcalLabel: 'scanner_kcal'.tr(),
+                    isArabic: isArabic,
                     onTap: () =>
-                        _showComingSoon(context, _recentMeals[index].name, l10n),
+                        _showComingSoon(context, _recentMeals[index].name),
                   ),
                 ),
               ),

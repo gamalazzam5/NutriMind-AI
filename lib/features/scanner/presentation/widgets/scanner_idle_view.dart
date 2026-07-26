@@ -1,7 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/localization/app_localizations.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_radius.dart';
 import '../../../../core/theme/app_text_styles.dart';
@@ -19,7 +19,7 @@ class ScannerIdleView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
+    final isArabic = context.locale.languageCode == 'ar';
     return DecoratedBox(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -50,16 +50,16 @@ class ScannerIdleView extends StatelessWidget {
               ),
               SizedBox(height: 24.h),
               Text(
-                l10n.t('scanner_idle_title'),
-                style: AppTextStyles.h2(color: Colors.white, isArabic: l10n.isArabic),
+                'scanner_idle_title'.tr(),
+                style: AppTextStyles.h2(color: Colors.white, isArabic: isArabic),
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 8.h),
               Text(
-                l10n.t('scanner_idle_subtitle'),
+                'scanner_idle_subtitle'.tr(),
                 style: AppTextStyles.bodyMedium(
                   color: Colors.white.withValues(alpha: 0.7),
-                  isArabic: l10n.isArabic,
+                  isArabic: isArabic,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -82,8 +82,8 @@ class ScannerIdleView extends StatelessWidget {
                         Icon(Icons.camera_alt_rounded, color: Colors.white, size: 20.sp),
                         SizedBox(width: 8.w),
                         Text(
-                          l10n.t('scanner_take_photo'),
-                          style: AppTextStyles.button(isArabic: l10n.isArabic),
+                          'scanner_take_photo'.tr(),
+                          style: AppTextStyles.button(isArabic: isArabic),
                         ),
                       ],
                     ),
@@ -94,10 +94,10 @@ class ScannerIdleView extends StatelessWidget {
               TextButton(
                 onPressed: onChooseFromGallery,
                 child: Text(
-                  l10n.t('scanner_choose_from_gallery'),
+                  'scanner_choose_from_gallery'.tr(),
                   style: AppTextStyles.bodyMedium(
                     color: Colors.white,
-                    isArabic: l10n.isArabic,
+                    isArabic: isArabic,
                   ),
                 ),
               ),

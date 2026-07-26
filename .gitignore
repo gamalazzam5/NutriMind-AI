@@ -43,3 +43,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# n8n workflow exports contain live API keys/credentials — keep local only
+n8n/*.json

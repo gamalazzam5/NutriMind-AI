@@ -77,7 +77,7 @@ class GradientButton extends StatelessWidget {
             : null,
         decoration: BoxDecoration(
           gradient: gradient,
-          borderRadius: BorderRadius.circular(AppRadius.pill),
+          borderRadius: BorderRadius.circular(12.r),
           boxShadow: showShadow ? AppShadows.coloredGlow(AppColors.primaryEnd) : null,
         ),
         child: Material(

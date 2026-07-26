@@ -1,9 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/localization/app_localizations.dart';
-import '../../../../core/localization/locale_cubit.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_radius.dart';
 import '../../data/models/profile_stat_model.dart';
@@ -17,51 +15,49 @@ import '../widgets/upgrade_pro_card.dart';
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
-  void _showComingSoon(BuildContext context, String label, AppLocalizations l10n) {
+  void _showComingSoon(BuildContext context, String label) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('$label — ${l10n.t('home_coming_soon')}')),
+      SnackBar(content: Text('$label — ${'home_coming_soon'.tr()}')),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    final currentLocale = context.watch<LocaleCubit>().state;
-    final currentLanguageLabel = l10n.t(
-      currentLocale.languageCode == 'ar'
-          ? 'profile_language_arabic'
-          : 'profile_language_english',
-    );
+    final isArabic = context.locale.languageCode == 'ar';
+    final currentLanguageLabel = (context.locale.languageCode == 'ar'
+            ? 'profile_language_arabic'
+            : 'profile_language_english')
+        .tr();
 
     final stats = [
       ProfileStatModel(
         icon: Icons.local_fire_department_rounded,
         value: '12',
-        label: l10n.t('profile_day_streak'),
+        label: 'profile_day_streak'.tr(),
       ),
       ProfileStatModel(
         icon: Icons.restaurant_rounded,
         value: '142',
-        label: l10n.t('profile_meals_logged'),
+        label: 'profile_meals_logged'.tr(),
       ),
       ProfileStatModel(
         icon: Icons.shield_rounded,
         value: '92',
-        label: l10n.t('profile_avg_score'),
+        label: 'profile_avg_score'.tr(),
       ),
     ];
 
     final settingsItems = [
       SettingsItemModel(
         icon: Icons.track_changes_rounded,
-        label: l10n.t('profile_health_goals'),
+        label: 'profile_health_goals'.tr(),
       ),
-      SettingsItemModel(icon: Icons.cable_rounded, label: l10n.t('profile_integrations')),
+      SettingsItemModel(icon: Icons.cable_rounded, label: 'profile_integrations'.tr()),
       SettingsItemModel(
         icon: Icons.notifications_none_rounded,
-        label: l10n.t('profile_notifications'),
+        label: 'profile_notifications'.tr(),
       ),
-      SettingsItemModel(icon: Icons.help_outline_rounded, label: l10n.t('profile_support')),
+      SettingsItemModel(icon: Icons.help_outline_rounded, label: 'profile_support'.tr()),
     ];
 
     return Scaffold(
@@ -75,10 +71,10 @@ class ProfileScreen extends StatelessWidget {
             children: [
               ProfileHeader(
                 name: 'Alex Rivera',
-                subtitle: l10n.t('profile_wellness_enthusiast'),
+                subtitle: 'profile_wellness_enthusiast'.tr(),
                 avatarAsset: 'assets/images/profile_avatar.jpg',
                 streakDays: 12,
-                isArabic: l10n.isArabic,
+                isArabic: isArabic,
               ),
               SizedBox(height: 12.h),
               ClipRRect(
@@ -87,18 +83,18 @@ class ProfileScreen extends StatelessWidget {
                   children: [
                     for (var i = 0; i < stats.length; i++) ...[
                       if (i != 0) SizedBox(width: 16.w),
-                      ProfileStatCard(stat: stats[i], isArabic: l10n.isArabic),
+                      ProfileStatCard(stat: stats[i], isArabic: isArabic),
                     ],
                   ],
                 ),
               ),
               SizedBox(height: 12.h),
               UpgradeProCard(
-                title: l10n.t('profile_upgrade_title'),
-                body: l10n.t('profile_upgrade_body'),
-                ctaLabel: l10n.t('profile_join_premium'),
-                isArabic: l10n.isArabic,
-                onTap: () => _showComingSoon(context, l10n.t('profile_join_premium'), l10n),
+                title: 'profile_upgrade_title'.tr(),
+                body: 'profile_upgrade_body'.tr(),
+                ctaLabel: 'profile_join_premium'.tr(),
+                isArabic: isArabic,
+                onTap: () => _showComingSoon(context, 'profile_join_premium'.tr()),
               ),
               SizedBox(height: 40.h),
               ClipRRect(
@@ -119,10 +115,10 @@ class ProfileScreen extends StatelessWidget {
                       SettingsListTile(
                         item: SettingsItemModel(
                           icon: Icons.language_rounded,
-                          label: l10n.t('profile_language'),
+                          label: 'profile_language'.tr(),
                         ),
                         showDivider: false,
-                        isArabic: l10n.isArabic,
+                        isArabic: isArabic,
                         trailing: Text(
                           currentLanguageLabel,
                           style: TextStyle(
@@ -135,8 +131,8 @@ class ProfileScreen extends StatelessWidget {
                       for (final item in settingsItems)
                         SettingsListTile(
                           item: item,
-                          isArabic: l10n.isArabic,
-                          onTap: () => _showComingSoon(context, item.label, l10n),
+                          isArabic: isArabic,
+                          onTap: () => _showComingSoon(context, item.label),
                         ),
                     ],
                   ),
