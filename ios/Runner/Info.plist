@@ -26,6 +26,14 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>NutriMind AI uses your camera to scan meals and estimate their nutrition.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>NutriMind AI needs access to your photos to scan meals or attach images in chat.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>NutriMind AI uses your microphone to let you ask questions by voice.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>NutriMind AI converts your speech to text so you can ask questions hands-free.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

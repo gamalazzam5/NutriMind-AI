@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/di/injection_container.dart';
+import 'core/localization/app_localizations.dart';
+import 'core/localization/locale_cubit.dart';
 import 'core/routes/app_router.dart';
 import 'core/routes/app_routes.dart';
 import 'core/theme/app_theme.dart';
@@ -20,15 +24,30 @@ class NutriMindApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: _designSize,
-      minTextAdapt: true,
-      builder: (context, child) => MaterialApp(
-        title: 'NutriMind AI',
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.light(),
-        initialRoute: AppRoutes.splash,
-        onGenerateRoute: AppRouter.onGenerateRoute,
+    return BlocProvider<LocaleCubit>(
+      create: (_) => getIt<LocaleCubit>(),
+      child: BlocBuilder<LocaleCubit, Locale>(
+        builder: (context, locale) {
+          return ScreenUtilInit(
+            designSize: _designSize,
+            minTextAdapt: true,
+            builder: (context, child) => MaterialApp(
+              title: 'NutriMind AI',
+              debugShowCheckedModeBanner: false,
+              theme: AppTheme.light(),
+              locale: locale,
+              supportedLocales: AppLocalizations.supportedLocales,
+              localizationsDelegates: const [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              initialRoute: AppRoutes.splash,
+              onGenerateRoute: AppRouter.onGenerateRoute,
+            ),
+          );
+        },
       ),
     );
   }

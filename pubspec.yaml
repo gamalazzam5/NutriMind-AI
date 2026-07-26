@@ -35,6 +35,10 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
 
+  # Localization (en/ar)
+  flutter_localizations:
+    sdk: flutter
+
   # State management
   flutter_bloc: ^9.1.1
 
@@ -71,6 +75,7 @@ dependencies:
 
   # Local key-value persistence
   shared_preferences: ^2.3.3
+  speech_to_text: ^7.4.0
 
 dev_dependencies:
   flutter_test:

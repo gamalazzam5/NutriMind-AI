@@ -30,6 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _login() {
     // TODO: wire to AuthCubit once Firebase Auth is integrated.
+    Navigator.of(context).pushReplacementNamed(AppRoutes.main);
   }
 
   void _forgotPassword() {

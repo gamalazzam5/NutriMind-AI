@@ -33,6 +33,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   void _signUp() {
     // TODO: wire to AuthCubit once Firebase Auth is integrated.
+    Navigator.of(context).pushReplacementNamed(AppRoutes.main);
   }
 
   void _goToLogin() {
@@ -156,7 +157,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: 32.h),
+              SizedBox(height: 12.h),
               AuthFooterLink(
                 prefixText: 'Already have an account? ',
                 actionText: 'Login',
