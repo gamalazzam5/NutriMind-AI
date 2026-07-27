@@ -14,6 +14,8 @@ class SettingsListTile extends StatelessWidget {
     this.showDivider = true,
     this.isArabic = false,
     this.trailing,
+    this.iconColor,
+    this.labelColor,
   });
 
   final SettingsItemModel item;
@@ -21,6 +23,8 @@ class SettingsListTile extends StatelessWidget {
   final bool showDivider;
   final bool isArabic;
   final Widget? trailing;
+  final Color? iconColor;
+  final Color? labelColor;
 
   @override
   Widget build(BuildContext context) {
@@ -44,13 +48,22 @@ class SettingsListTile extends StatelessWidget {
                     width: 40.r,
                     height: 40.r,
                     decoration: BoxDecoration(
-                      color: AppColors.primaryStart.withValues(alpha: 0.2),
+                      color: (iconColor ?? const Color(0xFF006D37)).withValues(alpha: 0.2),
                       shape: BoxShape.circle,
                     ),
-                    child: Icon(item.icon, size: 20.sp, color: const Color(0xFF006D37)),
+                    child: Icon(
+                      item.icon,
+                      size: 20.sp,
+                      color: iconColor ?? const Color(0xFF006D37),
+                    ),
                   ),
                   SizedBox(width: 16.w),
-                  Text(item.label, style: AppTextStyles.bodyLarge(isArabic: isArabic)),
+                  Text(
+                    item.label,
+                    style: labelColor == null
+                        ? AppTextStyles.bodyLarge(isArabic: isArabic)
+                        : AppTextStyles.bodyLarge(isArabic: isArabic, color: labelColor!),
+                  ),
                 ],
               ),
               trailing ??

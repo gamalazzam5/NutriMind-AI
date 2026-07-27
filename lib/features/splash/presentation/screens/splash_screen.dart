@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/di/injection_container.dart';
 import '../../../../core/routes/app_routes.dart';
 import '../../../../core/theme/app_text_styles.dart';
+import '../../../auth/domain/repos/auth_repository.dart';
 import '../../../onboarding/presentation/cubit/onboarding_cubit.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -23,8 +24,13 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 2), () {
       if (!mounted) return;
       final onboardingDone = OnboardingCubit.hasCompleted(getIt());
+      if (!onboardingDone) {
+        Navigator.of(context).pushReplacementNamed(AppRoutes.onboarding);
+        return;
+      }
+      final isSignedIn = getIt<AuthRepository>().currentUser != null;
       Navigator.of(context).pushReplacementNamed(
-        onboardingDone ? AppRoutes.login : AppRoutes.onboarding,
+        isSignedIn ? AppRoutes.main : AppRoutes.login,
       );
     });
   }

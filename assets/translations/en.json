@@ -33,6 +33,9 @@
   "profile_language_sheet_title": "Choose language",
   "profile_language_english": "English",
   "profile_language_arabic": "العربية",
+  "profile_log_out": "Log Out",
+  "profile_log_out_confirm": "Are you sure you want to log out?",
+  "profile_cancel": "Cancel",
 
   "scanner_title": "AI Food Scanner",
   "scanner_center_food": "Center food in frame",

@@ -1,8 +1,18 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../features/auth/data/datasources/auth_remote_data_source.dart';
+import '../../features/auth/data/repos/auth_repository_impl.dart';
+import '../../features/auth/domain/repos/auth_repository.dart';
+import '../../features/auth/domain/usecases/sign_in_with_email_usecase.dart';
+import '../../features/auth/domain/usecases/sign_in_with_google_usecase.dart';
+import '../../features/auth/domain/usecases/sign_out_usecase.dart';
+import '../../features/auth/domain/usecases/sign_up_with_email_usecase.dart';
+import '../../features/auth/presentation/cubit/auth_cubit.dart';
 import '../../features/chat/data/datasources/chat_remote_data_source.dart';
 import '../../features/chat/data/repos/chat_repository_impl.dart';
 import '../../features/chat/domain/repos/chat_repository.dart';
@@ -35,6 +45,27 @@ Future<void> initDependencies() async {
   getIt.registerLazySingleton<SharedPreferences>(() => prefs);
 
   getIt.registerFactory(() => OnboardingCubit(getIt<SharedPreferences>()));
+
+  getIt.registerLazySingleton(() => FirebaseAuth.instance);
+  getIt.registerLazySingleton(() => GoogleSignIn.instance);
+  getIt.registerLazySingleton(
+    () => AuthRemoteDataSource(getIt<FirebaseAuth>(), getIt<GoogleSignIn>()),
+  );
+  getIt.registerLazySingleton<AuthRepository>(
+    () => AuthRepositoryImpl(getIt<AuthRemoteDataSource>()),
+  );
+  getIt.registerLazySingleton(() => SignInWithEmailUseCase(getIt<AuthRepository>()));
+  getIt.registerLazySingleton(() => SignUpWithEmailUseCase(getIt<AuthRepository>()));
+  getIt.registerLazySingleton(() => SignInWithGoogleUseCase(getIt<AuthRepository>()));
+  getIt.registerLazySingleton(() => SignOutUseCase(getIt<AuthRepository>()));
+  getIt.registerFactory(
+    () => AuthCubit(
+      getIt<SignInWithEmailUseCase>(),
+      getIt<SignUpWithEmailUseCase>(),
+      getIt<SignInWithGoogleUseCase>(),
+      getIt<SignOutUseCase>(),
+    ),
+  );
 
   getIt.registerLazySingleton(() => ChatRemoteDataSource(getIt<Dio>()));
   getIt.registerLazySingleton<ChatRepository>(

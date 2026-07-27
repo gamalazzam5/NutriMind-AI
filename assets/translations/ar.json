@@ -33,6 +33,9 @@
   "profile_language_sheet_title": "اختر اللغة",
   "profile_language_english": "English",
   "profile_language_arabic": "العربية",
+  "profile_log_out": "تسجيل الخروج",
+  "profile_log_out_confirm": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+  "profile_cancel": "إلغاء",
 
   "scanner_title": "ماسح الطعام الذكي",
   "scanner_center_food": "ضع الطعام في المنتصف",

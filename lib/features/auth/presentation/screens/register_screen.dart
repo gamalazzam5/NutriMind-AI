@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/routes/app_routes.dart';
@@ -6,6 +7,8 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_radius.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/widgets/gradient_button.dart';
+import '../cubit/auth_cubit.dart';
+import '../cubit/auth_state.dart';
 import '../widgets/auth_divider.dart';
 import '../widgets/auth_footer_link.dart';
 import '../widgets/auth_social_button.dart';
@@ -32,8 +35,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void _signUp() {
-    // TODO: wire to AuthCubit once Firebase Auth is integrated.
-    Navigator.of(context).pushReplacementNamed(AppRoutes.main);
+    context.read<AuthCubit>().signUpWithEmail(
+      email: _emailController.text.trim(),
+      password: _passwordController.text,
+      displayName: _nameController.text.trim(),
+    );
+  }
+
+  void _signUpWithGoogle() {
+    context.read<AuthCubit>().signInWithGoogle();
   }
 
   void _goToLogin() {
@@ -45,7 +55,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
-        child: SingleChildScrollView(
+        child: BlocConsumer<AuthCubit, AuthState>(
+          listener: (context, state) {
+            if (state is AuthSuccess) {
+              Navigator.of(context).pushReplacementNamed(AppRoutes.main);
+            } else if (state is AuthError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(state.message)),
+              );
+            }
+          },
+          builder: (context, state) {
+            final isLoading = state is AuthLoading;
+            return _buildForm(isLoading: isLoading);
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _buildForm({required bool isLoading}) {
+    return SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 32.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -130,9 +160,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     SizedBox(height: 24.h),
                     GradientButton(
-
                       label: 'Sign Up',
-                      onPressed: _signUp,
+                      onPressed: isLoading ? null : _signUp,
+                      isLoading: isLoading,
                       gradient: AppColors.signUpGradient,
                     ),
                     SizedBox(height: 24.h),
@@ -143,7 +173,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         AuthSocialButton(
                           iconAsset: 'assets/images/icon_google.png',
                           label: 'Google',
-                          onTap: () {},
+                          onTap: isLoading ? () {} : _signUpWithGoogle,
                         ),
                         SizedBox(width: 16.w),
                         AuthSocialButton(
@@ -164,8 +194,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
             ],
           ),
-        ),
-      ),
-    );
+        );
   }
 }
