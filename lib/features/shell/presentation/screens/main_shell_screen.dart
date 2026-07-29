@@ -7,6 +7,7 @@ import '../../../scanner/presentation/screens/scanner_screen.dart';
 import '../widgets/app_bottom_nav_bar.dart';
 
 const _scannerTabIndex = 1;
+const _chatTabIndex = 2;
 
 /// Root app shell hosting the Home / Scanner / AI Chat / Profile tabs behind
 /// the shared bottom navigation bar.
@@ -22,10 +23,12 @@ class _MainShellScreenState extends State<MainShellScreen> {
 
   void _goToScanner() => setState(() => _currentIndex = _scannerTabIndex);
 
+  void _goToChat() => setState(() => _currentIndex = _chatTabIndex);
+
   @override
   Widget build(BuildContext context) {
     final tabs = [
-      HomeScreen(onScanFoodTap: _goToScanner),
+      HomeScreen(onScanFoodTap: _goToScanner, onAskAiTap: _goToChat),
       const ScannerScreen(),
       const ChatScreen(),
       const ProfileScreen(),

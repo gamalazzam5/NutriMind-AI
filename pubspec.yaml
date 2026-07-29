@@ -75,6 +75,10 @@ dependencies:
 
   # Local key-value persistence
   shared_preferences: ^2.3.3
+
+  # Local structured persistence (meal log history)
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
   speech_to_text: ^7.4.0
   easy_localization: ^3.0.8
   google_sign_in: ^7.2.0

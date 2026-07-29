@@ -15,3 +15,10 @@ class ServerFailure extends Failure {
 class UnknownFailure extends Failure {
   const UnknownFailure(super.message);
 }
+
+/// The user backed out of a flow themselves (e.g. dismissed the Google
+/// account picker). Not an error — callers should return to the prior state
+/// silently instead of surfacing a message.
+class CancelledFailure extends Failure {
+  const CancelledFailure() : super('');
+}

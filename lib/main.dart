@@ -2,8 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import 'core/di/injection_container.dart';
+import 'core/meal_log/data/models/logged_meal_hive_model.dart';
 import 'core/routes/app_router.dart';
 import 'core/routes/app_routes.dart';
 import 'core/theme/app_theme.dart';
@@ -13,6 +15,9 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await EasyLocalization.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(LoggedMealHiveModelAdapter());
+  await Hive.openBox<LoggedMealHiveModel>(mealLogBoxName);
   await initDependencies();
   runApp(
     EasyLocalization(

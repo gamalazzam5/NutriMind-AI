@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/di/injection_container.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
+import '../../../../core/widgets/app_snackbar.dart';
 import '../cubit/scanner_cubit.dart';
 import '../cubit/scanner_state.dart';
 import '../widgets/scan_result_sheet.dart';
@@ -37,9 +38,7 @@ class _ScannerView extends StatelessWidget {
       body: BlocConsumer<ScannerCubit, ScannerState>(
         listener: (context, state) {
           if (state is ScannerError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.messageKey.tr())),
-            );
+            AppSnackBar.error(context, state.messageKey.tr());
           }
         },
         builder: (context, state) {
@@ -124,11 +123,15 @@ class _ScannerView extends StatelessWidget {
                     child: SingleChildScrollView(
                       child: ScanResultSheet(
                         result: state.result,
-                        onLog: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('scanner_meal_logged'.tr())),
-                          );
-                          context.read<ScannerCubit>().reset();
+                        onLog: () async {
+                          final success =
+                              await context.read<ScannerCubit>().logCurrentMeal();
+                          if (!context.mounted) return;
+                          if (success) {
+                            AppSnackBar.success(context, 'scanner_meal_logged'.tr());
+                          } else {
+                            AppSnackBar.error(context, 'scanner_log_error'.tr());
+                          }
                         },
                       ),
                     ),

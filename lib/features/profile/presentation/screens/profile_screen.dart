@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/routes/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_radius.dart';
+import '../../../../core/widgets/app_snackbar.dart';
 import '../../../auth/presentation/cubit/auth_cubit.dart';
 import '../../../auth/presentation/cubit/auth_state.dart';
 import '../../data/models/profile_stat_model.dart';
@@ -20,9 +21,7 @@ class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   void _showComingSoon(BuildContext context, String label) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('$label — ${'home_coming_soon'.tr()}')),
-    );
+    AppSnackBar.info(context, '$label — ${'home_coming_soon'.tr()}');
   }
 
   Future<void> _confirmLogOut(BuildContext context) async {
@@ -60,9 +59,7 @@ class ProfileScreen extends StatelessWidget {
             context,
           ).pushNamedAndRemoveUntil(AppRoutes.login, (route) => false);
         } else if (state is AuthError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message)),
-          );
+          AppSnackBar.error(context, state.message);
         }
       },
       child: _buildContent(context),

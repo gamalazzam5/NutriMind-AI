@@ -3,6 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:nutrimind/core/error/failures.dart';
+import 'package:nutrimind/core/meal_log/domain/entities/logged_meal_entity.dart';
+import 'package:nutrimind/core/meal_log/domain/usecases/log_meal_usecase.dart';
 import 'package:nutrimind/features/scanner/domain/entities/scan_result_entity.dart';
 import 'package:nutrimind/features/scanner/domain/usecases/analyze_food_image_usecase.dart';
 import 'package:nutrimind/features/scanner/presentation/cubit/scanner_cubit.dart';
@@ -12,9 +14,12 @@ class _MockImagePicker extends Mock implements ImagePicker {}
 
 class _MockAnalyzeFoodImageUseCase extends Mock implements AnalyzeFoodImageUseCase {}
 
+class _MockLogMealUseCase extends Mock implements LogMealUseCase {}
+
 void main() {
   late _MockImagePicker picker;
   late _MockAnalyzeFoodImageUseCase analyzeFoodImage;
+  late _MockLogMealUseCase logMeal;
   late ScannerCubit cubit;
 
   const result = ScanResultEntity(
@@ -26,10 +31,26 @@ void main() {
     fatGrams: 18,
   );
 
+  setUpAll(() {
+    registerFallbackValue(
+      LoggedMealEntity(
+        id: 'fallback',
+        foodName: 'fallback',
+        calories: 0,
+        healthScore: 0,
+        proteinGrams: 0,
+        carbsGrams: 0,
+        fatGrams: 0,
+        loggedAt: DateTime(2024),
+      ),
+    );
+  });
+
   setUp(() {
     picker = _MockImagePicker();
     analyzeFoodImage = _MockAnalyzeFoodImageUseCase();
-    cubit = ScannerCubit(picker, analyzeFoodImage);
+    logMeal = _MockLogMealUseCase();
+    cubit = ScannerCubit(picker, analyzeFoodImage, logMeal);
   });
 
   tearDown(() => cubit.close());
@@ -91,5 +112,46 @@ void main() {
     cubit.reset();
 
     expect(cubit.state, isA<ScannerIdle>());
+  });
+
+  test('logCurrentMeal resets to idle and returns true on success', () async {
+    when(
+      () => picker.pickImage(source: ImageSource.camera, imageQuality: 85),
+    ).thenAnswer((_) async => XFile('/tmp/a.jpg'));
+    when(
+      () => analyzeFoodImage(imagePath: '/tmp/a.jpg'),
+    ).thenAnswer((_) async => const Right(result));
+    when(() => logMeal(any())).thenAnswer((_) async => const Right(null));
+    await cubit.captureFromCamera();
+
+    final success = await cubit.logCurrentMeal();
+
+    expect(success, isTrue);
+    expect(cubit.state, isA<ScannerIdle>());
+  });
+
+  test('logCurrentMeal keeps the result on screen and returns false on failure', () async {
+    when(
+      () => picker.pickImage(source: ImageSource.camera, imageQuality: 85),
+    ).thenAnswer((_) async => XFile('/tmp/a.jpg'));
+    when(
+      () => analyzeFoodImage(imagePath: '/tmp/a.jpg'),
+    ).thenAnswer((_) async => const Right(result));
+    when(
+      () => logMeal(any()),
+    ).thenAnswer((_) async => const Left(UnknownFailure('disk full')));
+    await cubit.captureFromCamera();
+
+    final success = await cubit.logCurrentMeal();
+
+    expect(success, isFalse);
+    expect(cubit.state, isA<ScannerResultReady>());
+  });
+
+  test('logCurrentMeal does nothing when there is no result to log', () async {
+    final success = await cubit.logCurrentMeal();
+
+    expect(success, isFalse);
+    verifyNever(() => logMeal(any()));
   });
 }

@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/routes/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
+import '../../../../core/widgets/app_snackbar.dart';
 import '../../../../core/widgets/gradient_button.dart';
 import '../cubit/auth_cubit.dart';
 import '../cubit/auth_state.dart';
@@ -43,9 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _forgotPassword() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Coming soon')),
-    );
+    AppSnackBar.info(context, 'Coming soon');
   }
 
   void _goToRegister() {
@@ -62,9 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
             if (state is AuthSuccess) {
               Navigator.of(context).pushReplacementNamed(AppRoutes.main);
             } else if (state is AuthError) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.message)),
-              );
+              AppSnackBar.error(context, state.message);
             }
           },
           builder: (context, state) {

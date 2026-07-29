@@ -36,6 +36,7 @@ class ActionTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(AppRadius.xl),
           onTap: onTap,
           child: Container(
+            width: double.infinity,
             padding: EdgeInsets.all(20.r),
             decoration: BoxDecoration(
               gradient: gradient,
@@ -46,7 +47,7 @@ class ActionTile extends StatelessWidget {
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
+              mainAxisSize: MainAxisSize.max,
               children: [
                 Container(
                   width: 48.r,

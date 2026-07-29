@@ -11,10 +11,12 @@ class SendChatImageMessageUseCase {
   Future<Either<Failure, String>> call({
     required String imagePath,
     required String conversationId,
+    String? caption,
   }) {
     return _repository.sendImage(
       imagePath: imagePath,
       conversationId: conversationId,
+      caption: caption,
     );
   }
 }

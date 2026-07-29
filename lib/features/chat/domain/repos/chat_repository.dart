@@ -11,5 +11,6 @@ abstract class ChatRepository {
   Future<Either<Failure, String>> sendImage({
     required String imagePath,
     required String conversationId,
+    String? caption,
   });
 }

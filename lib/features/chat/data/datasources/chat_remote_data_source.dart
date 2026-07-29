@@ -30,6 +30,7 @@ class ChatRemoteDataSource {
   Future<ChatResponseModel> sendImage({
     required String imagePath,
     required String conversationId,
+    String? caption,
   }) async {
     final response = await _dio.post(
       ApiEndpoints.chatSupport,
@@ -38,6 +39,7 @@ class ChatRemoteDataSource {
         'image': await encodeImageFileToBase64(imagePath),
         'mimeType': resolveImageMimeType(imagePath),
         'conversationId': conversationId,
+        if (caption != null && caption.trim().isNotEmpty) 'text': caption.trim(),
       },
     );
     return ChatResponseModel.fromJson(parseJsonResponse(response.data));

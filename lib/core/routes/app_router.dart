@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../features/auth/presentation/cubit/auth_cubit.dart';
 import '../../features/auth/presentation/screens/login_screen.dart';
 import '../../features/auth/presentation/screens/register_screen.dart';
+import '../../features/history/presentation/screens/history_screen.dart';
 import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
 import '../../features/shell/presentation/screens/main_shell_screen.dart';
 import '../../features/splash/presentation/screens/splash_screen.dart';
@@ -38,6 +39,8 @@ abstract final class AppRouter {
             child: const MainShellScreen(),
           ),
         );
+      case AppRoutes.history:
+        return MaterialPageRoute(builder: (_) => const HistoryScreen());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

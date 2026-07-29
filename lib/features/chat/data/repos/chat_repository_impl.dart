@@ -31,11 +31,13 @@ class ChatRepositoryImpl implements ChatRepository {
   Future<Either<Failure, String>> sendImage({
     required String imagePath,
     required String conversationId,
+    String? caption,
   }) async {
     try {
       final response = await _dataSource.sendImage(
         imagePath: imagePath,
         conversationId: conversationId,
+        caption: caption,
       );
       return _resultFrom(response);
     } catch (e) {

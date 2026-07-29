@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../../../core/constants/auth_constants.dart';
+
 /// Thin wrapper around the Firebase Auth and Google Sign-In SDKs.
 class AuthRemoteDataSource {
   AuthRemoteDataSource(this._firebaseAuth, this._googleSignIn);
@@ -56,7 +58,9 @@ class AuthRemoteDataSource {
 
   Future<void> _ensureGoogleSignInInitialized() async {
     if (_googleSignInInitialized) return;
-    await _googleSignIn.initialize();
+    await _googleSignIn.initialize(
+      serverClientId: AuthConstants.googleServerClientId,
+    );
     _googleSignInInitialized = true;
   }
 }

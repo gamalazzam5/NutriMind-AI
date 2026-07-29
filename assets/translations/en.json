@@ -48,6 +48,7 @@
   "scanner_kcal": "kcal",
   "scanner_log_meal": "Log this meal",
   "scanner_meal_logged": "Meal logged!",
+  "scanner_log_error": "Couldn't log this meal. Please try again.",
   "scanner_scan_again": "Scan again",
   "scanner_permission_denied": "Camera permission is required to scan meals.",
   "scanner_error": "Couldn't analyze this photo. Please try again.",
@@ -57,5 +58,12 @@
   "chat_mic_permission_denied": "Microphone permission is required.",
   "chat_suggestion_meal_plan": "Meal plan for today",
   "chat_suggestion_snacks": "Healthiest snacks",
-  "chat_suggestion_log_breakfast": "Log my breakfast"
+  "chat_suggestion_log_breakfast": "Log my breakfast",
+  "chat_add_caption_title": "Add a comment?",
+  "chat_add_caption_hint": "Say something about this photo...",
+  "chat_skip_caption": "Skip",
+  "chat_send_with_caption": "Send",
+
+  "history_title": "Logged Meals",
+  "history_empty": "No meals logged yet. Scan a meal to get started!"
 }

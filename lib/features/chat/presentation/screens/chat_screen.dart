@@ -72,7 +72,8 @@ class _ChatViewState extends State<_ChatView> {
             ),
             ChatInputBar(
               onSend: (text) => context.read<ChatCubit>().sendMessage(text),
-              onSendImage: (path) => context.read<ChatCubit>().sendImage(path),
+              onSendImage: (path, caption) =>
+                  context.read<ChatCubit>().sendImage(path, caption: caption),
             ),
           ],
         ),

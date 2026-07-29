@@ -48,6 +48,7 @@
   "scanner_kcal": "سعرة",
   "scanner_log_meal": "تسجيل هذه الوجبة",
   "scanner_meal_logged": "تم تسجيل الوجبة!",
+  "scanner_log_error": "تعذر تسجيل هذه الوجبة. حاول مرة أخرى.",
   "scanner_scan_again": "مسح مرة أخرى",
   "scanner_permission_denied": "يلزم إذن الكاميرا لمسح الوجبات.",
   "scanner_error": "تعذر تحليل هذه الصورة. حاول مرة أخرى.",
@@ -57,5 +58,12 @@
   "chat_mic_permission_denied": "يلزم إذن الميكروفون.",
   "chat_suggestion_meal_plan": "خطة وجبات اليوم",
   "chat_suggestion_snacks": "أفضل الوجبات الخفيفة",
-  "chat_suggestion_log_breakfast": "تسجيل الفطور"
+  "chat_suggestion_log_breakfast": "تسجيل الفطور",
+  "chat_add_caption_title": "إضافة تعليق؟",
+  "chat_add_caption_hint": "اكتب شيئًا عن هذه الصورة...",
+  "chat_skip_caption": "تخطي",
+  "chat_send_with_caption": "إرسال",
+
+  "history_title": "الوجبات المسجلة",
+  "history_empty": "لا توجد وجبات مسجلة بعد. امسح وجبة للبدء!"
 }

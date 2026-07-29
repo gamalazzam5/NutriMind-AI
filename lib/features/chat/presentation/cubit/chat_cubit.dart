@@ -51,11 +51,13 @@ class ChatCubit extends Cubit<ChatState> {
     _emitReply(result);
   }
 
-  Future<void> sendImage(String imagePath) async {
+  Future<void> sendImage(String imagePath, {String? caption}) async {
+    final trimmedCaption = caption?.trim();
     final userMessage = ChatMessageEntity(
       id: 'user-${_idCounter++}',
       isUser: true,
       imagePath: imagePath,
+      text: trimmedCaption ?? '',
     );
     emit(state.copyWith(
       messages: [...state.messages, userMessage],
@@ -65,6 +67,7 @@ class ChatCubit extends Cubit<ChatState> {
     final result = await _sendImage(
       imagePath: imagePath,
       conversationId: _conversationId,
+      caption: trimmedCaption,
     );
     if (isClosed) return;
     _emitReply(result);

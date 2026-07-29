@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../../core/error/failures.dart';
 import '../../../../core/network/firebase_auth_failure_mapper.dart';
@@ -54,6 +55,13 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       final user = await _dataSource.signInWithGoogle();
       return Right(_toEntity(user)!);
+    } on GoogleSignInException catch (e) {
+      if (e.code == GoogleSignInExceptionCode.canceled) {
+        return const Left(CancelledFailure());
+      }
+      return const Left(
+        ServerFailure('Google sign-in failed. Please try again.'),
+      );
     } catch (e) {
       return Left(mapFirebaseAuthException(e));
     }

@@ -12,7 +12,20 @@
           "package_name": "com.example.nutrimind"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "802691836492-6c6kqikefek79mq6k62fsv0okdc8t03s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nutrimind",
+            "certificate_hash": "515dbb6fe01be71bb8500892f140bc8c4498fc4f"
+          }
+        },
+        {
+          "client_id": "802691836492-5orpnbd3qr5kbfdsapdd99rc29lpgleg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyByuqX8HscG9qFQeamqUD55hU4y2J95em8"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "802691836492-5orpnbd3qr5kbfdsapdd99rc29lpgleg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "802691836492-7a79cokgpm3e6sg34bg2r1g42itd2v9s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.nutrimind"
+              }
+            }
+          ]
         }
       }
     }
