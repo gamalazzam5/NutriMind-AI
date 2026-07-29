@@ -66,14 +66,18 @@ class _LoginScreenState extends State<LoginScreen> {
           },
           builder: (context, state) {
             final isLoading = state is AuthLoading;
-            return _buildForm(isLoading: isLoading);
+            final isGoogleLoading = isLoading && state.isGoogle;
+            return _buildForm(
+              isLoading: isLoading,
+              isGoogleLoading: isGoogleLoading,
+            );
           },
         ),
       ),
     );
   }
 
-  Widget _buildForm({required bool isLoading}) {
+  Widget _buildForm({required bool isLoading, required bool isGoogleLoading}) {
     return SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 32.h),
           child: Column(
@@ -144,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
               GradientButton(
                 label: 'Login',
                 onPressed: isLoading ? null : _login,
-                isLoading: isLoading,
+                isLoading: isLoading && !isGoogleLoading,
                 gradient: AppColors.ctaGradient,
               ),
               SizedBox(height: 32.h),
@@ -156,6 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     iconAsset: 'assets/images/icon_google.png',
                     label: 'Google',
                     onTap: isLoading ? () {} : _loginWithGoogle,
+                    isLoading: isGoogleLoading,
                   ),
                   SizedBox(width: 16.w),
                   AuthSocialButton(

@@ -46,7 +46,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> signInWithGoogle() async {
-    emit(const AuthLoading());
+    emit(const AuthLoading(isGoogle: true));
     final result = await _signInWithGoogle();
     if (isClosed) return;
     result.fold(

@@ -11,11 +11,13 @@ class AuthSocialButton extends StatelessWidget {
     required this.iconAsset,
     required this.label,
     required this.onTap,
+    this.isLoading = false,
   });
 
   final String iconAsset;
   final String label;
   final VoidCallback onTap;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class AuthSocialButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppRadius.sm),
         child: InkWell(
           borderRadius: BorderRadius.circular(AppRadius.sm),
-          onTap: onTap,
+          onTap: isLoading ? null : onTap,
           child: Container(
             padding: EdgeInsets.symmetric(vertical: 11.h),
             decoration: BoxDecoration(
@@ -39,17 +41,28 @@ class AuthSocialButton extends StatelessWidget {
                 ),
               ],
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(iconAsset, width: 20.w, height: 20.w),
-                SizedBox(width: 8.w),
-                Text(
-                  label,
-                  style: AppTextStyles.bodyMedium(color: const Color(0xFF161D17))
-                      .copyWith(fontWeight: FontWeight.w600, letterSpacing: 0.14),
-                ),
-              ],
+            child: Center(
+              child: isLoading
+                  ? SizedBox(
+                      width: 20.w,
+                      height: 20.w,
+                      child: const CircularProgressIndicator(
+                        strokeWidth: 2.5,
+                        valueColor: AlwaysStoppedAnimation(Color(0xFF161D17)),
+                      ),
+                    )
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(iconAsset, width: 20.w, height: 20.w),
+                        SizedBox(width: 8.w),
+                        Text(
+                          label,
+                          style: AppTextStyles.bodyMedium(color: const Color(0xFF161D17))
+                              .copyWith(fontWeight: FontWeight.w600, letterSpacing: 0.14),
+                        ),
+                      ],
+                    ),
             ),
           ),
         ),
