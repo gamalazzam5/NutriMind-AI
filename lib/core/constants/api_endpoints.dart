@@ -1,6 +1,4 @@
-/// n8n webhook endpoints backing the chat support and food scanner
-/// features. See `n8n/chat-support-workflow.json` and
-/// `n8n/scanner-workflow.json` for the deployed workflow definitions.
+
 class ApiEndpoints {
   ApiEndpoints._();
 

@@ -18,8 +18,6 @@ const _suggestedQuestionKeys = [
   'chat_suggestion_log_breakfast',
 ];
 
-/// Fixed input bar above the bottom nav bar: suggested question chips,
-/// text field with voice dictation, image attach, and send button.
 typedef SendImageCallback = void Function(String imagePath, String? caption);
 
 class ChatInputBar extends StatefulWidget {
@@ -243,10 +241,6 @@ class _ChatInputBarState extends State<ChatInputBar> {
   }
 }
 
-/// Bottom sheet prompting for an optional caption before sending a picked
-/// image. Owns its own [TextEditingController] lifecycle so it's never
-/// disposed while the sheet's dismiss animation or IME teardown still holds
-/// a reference to it.
 class _CaptionSheet extends StatefulWidget {
   const _CaptionSheet({required this.imagePath});
 

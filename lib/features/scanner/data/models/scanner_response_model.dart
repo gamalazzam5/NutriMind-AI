@@ -22,9 +22,7 @@ class ScanResultModel extends ScanResultEntity {
   }
 }
 
-/// Maps the JSON body returned by the `scanner` n8n webhook:
-/// `{ success, scan: {...} }` on success, or `{ success: false, error, code }`
-/// on failure.
+
 class ScannerResponseModel {
   final bool success;
   final ScanResultModel? scan;

@@ -79,105 +79,106 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _buildForm({required bool isLoading, required bool isGoogleLoading}) {
     return SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 32.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Center(
-                child: Container(
-                  width: 96.r,
-                  height: 96.r,
-                  padding: EdgeInsets.all(1.r),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.primaryStart.withValues(alpha: 0.12),
-                        blurRadius: 12.r,
-                        offset: Offset(0, 4.h),
-                      ),
-                    ],
-                  ),
-                  child: ClipOval(
-                    child: Image.asset('assets/images/logo.png', fit: BoxFit.cover),
-                  ),
-                ),
-              ),
-              SizedBox(height: 16.h),
-              Text(
-                'NutriMind AI',
-                textAlign: TextAlign.center,
-                style: AppTextStyles.h1(color: const Color(0xFF006D37)),
-              ),
-              SizedBox(height: 8.h),
-              Text(
-                'Your personal holistic health companion',
-                textAlign: TextAlign.center,
-                style: AppTextStyles.bodyLarge(color: const Color(0xFF3D4A3E)),
-              ),
-              SizedBox(height: 32.h),
-              AuthTextField(
-                controller: _emailController,
-                hintText: 'Email Address',
-                icon: Icons.mail_outline_rounded,
-                keyboardType: TextInputType.emailAddress,
-                showShadow: true,
-              ),
-              SizedBox(height: 16.h),
-              AuthTextField(
-                controller: _passwordController,
-                hintText: 'Password',
-                icon: Icons.lock_outline_rounded,
-                obscureText: true,
-                showShadow: true,
-              ),
-              SizedBox(height: 8.h),
-              Align(
-                alignment: Alignment.centerRight,
-                child: GestureDetector(
-                  onTap: _forgotPassword,
-                  child: Text(
-                    'Forgot password?',
-                    style: AppTextStyles.caption(color: const Color(0xFF006D37))
-                        .copyWith(fontWeight: FontWeight.w500, fontSize: 12.sp),
-                  ),
-                ),
-              ),
-              SizedBox(height: 16.h),
-              GradientButton(
-                label: 'Login',
-                onPressed: isLoading ? null : _login,
-                isLoading: isLoading && !isGoogleLoading,
-                gradient: AppColors.ctaGradient,
-              ),
-              SizedBox(height: 32.h),
-              const AuthDivider(label: 'OR CONTINUE WITH'),
-              SizedBox(height: 16.h),
-              Row(
-                children: [
-                  AuthSocialButton(
-                    iconAsset: 'assets/images/icon_google.png',
-                    label: 'Google',
-                    onTap: isLoading ? () {} : _loginWithGoogle,
-                    isLoading: isGoogleLoading,
-                  ),
-                  SizedBox(width: 16.w),
-                  AuthSocialButton(
-                    iconAsset: 'assets/images/icon_apple.png',
-                    label: 'Apple',
-                    onTap: () {},
+      padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 32.h),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Center(
+            child: Container(
+              width: 96.r,
+              height: 96.r,
+              padding: EdgeInsets.all(1.r),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.primaryStart.withValues(alpha: 0.12),
+                    blurRadius: 12.r,
+                    offset: Offset(0, 4.h),
                   ),
                 ],
               ),
-              SizedBox(height: 32.h),
-              AuthFooterLink(
-                prefixText: "Don't have an account? ",
-                actionText: 'Create account',
-                onTap: _goToRegister,
+              child: ClipOval(
+                child: Image.asset('assets/images/logo.png', fit: BoxFit.cover),
+              ),
+            ),
+          ),
+          SizedBox(height: 16.h),
+          Text(
+            'NutriMind AI',
+            textAlign: TextAlign.center,
+            style: AppTextStyles.h1(color: const Color(0xFF006D37)),
+          ),
+          SizedBox(height: 8.h),
+          Text(
+            'Your personal holistic health companion',
+            textAlign: TextAlign.center,
+            style: AppTextStyles.bodyLarge(color: const Color(0xFF3D4A3E)),
+          ),
+          SizedBox(height: 32.h),
+          AuthTextField(
+            controller: _emailController,
+            hintText: 'Email Address',
+            icon: Icons.mail_outline_rounded,
+            keyboardType: TextInputType.emailAddress,
+            showShadow: true,
+          ),
+          SizedBox(height: 16.h),
+          AuthTextField(
+            controller: _passwordController,
+            hintText: 'Password',
+            icon: Icons.lock_outline_rounded,
+            obscureText: true,
+            showShadow: true,
+          ),
+          SizedBox(height: 8.h),
+          Align(
+            alignment: Alignment.centerRight,
+            child: GestureDetector(
+              onTap: _forgotPassword,
+              child: Text(
+                'Forgot password?',
+                style: AppTextStyles.caption(
+                  color: const Color(0xFF006D37),
+                ).copyWith(fontWeight: FontWeight.w500, fontSize: 12.sp),
+              ),
+            ),
+          ),
+          SizedBox(height: 16.h),
+          GradientButton(
+            label: 'Login',
+            onPressed: isLoading ? null : _login,
+            isLoading: isLoading && !isGoogleLoading,
+            gradient: AppColors.ctaGradient,
+          ),
+          SizedBox(height: 32.h),
+          const AuthDivider(label: 'OR CONTINUE WITH'),
+          SizedBox(height: 16.h),
+          Row(
+            children: [
+              AuthSocialButton(
+                iconAsset: 'assets/images/icon_google.png',
+                label: 'Google',
+                onTap: isLoading ? () {} : _loginWithGoogle,
+                isLoading: isGoogleLoading,
+              ),
+              SizedBox(width: 16.w),
+              AuthSocialButton(
+                iconAsset: 'assets/images/icon_apple.png',
+                label: 'Apple',
+                onTap: () {},
               ),
             ],
           ),
-        );
+          SizedBox(height: 32.h),
+          AuthFooterLink(
+            prefixText: "Don't have an account? ",
+            actionText: 'Create account',
+            onTap: _goToRegister,
+          ),
+        ],
+      ),
+    );
   }
 }

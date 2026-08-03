@@ -1,4 +1,3 @@
-/// Result of an AI food scan: identified meal + estimated nutrition.
 class ScanResultEntity {
   final String foodName;
   final int calories;

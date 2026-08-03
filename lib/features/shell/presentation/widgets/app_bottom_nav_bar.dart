@@ -19,7 +19,6 @@ const _navItems = [
   _NavItem(Icons.person_outline_rounded, 'nav_profile'),
 ];
 
-/// Frosted, pill-tabbed bottom navigation bar shared across the main app shell.
 class AppBottomNavBar extends StatelessWidget {
   const AppBottomNavBar({
     super.key,

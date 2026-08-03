@@ -7,9 +7,7 @@ import '../theme/app_text_styles.dart';
 
 enum _AppSnackBarType { success, error, info }
 
-/// A single themed snackbar used across the app so every user-facing action
-/// (log meal, send message, coming-soon taps, auth errors, ...) looks and
-/// behaves consistently.
+
 abstract final class AppSnackBar {
   static void success(BuildContext context, String message) =>
       _show(context, message, _AppSnackBarType.success);

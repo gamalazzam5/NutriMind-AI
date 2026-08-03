@@ -1,12 +1,9 @@
 import 'package:hive/hive.dart';
 
-/// Hive box name for persisted meal logs.
 const mealLogBoxName = 'logged_meals';
 
-/// Hive typeId for [LoggedMealHiveModel]. Must stay unique across the app.
 const loggedMealHiveTypeId = 10;
 
-/// Hive-persisted record of a logged meal.
 class LoggedMealHiveModel {
   final String id;
   final String foodName;
@@ -31,7 +28,6 @@ class LoggedMealHiveModel {
   });
 }
 
-/// Manual `TypeAdapter` (no build_runner) for [LoggedMealHiveModel].
 class LoggedMealHiveModelAdapter extends TypeAdapter<LoggedMealHiveModel> {
   @override
   final int typeId = loggedMealHiveTypeId;

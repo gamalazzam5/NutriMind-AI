@@ -9,8 +9,7 @@ import '../widgets/app_bottom_nav_bar.dart';
 const _scannerTabIndex = 1;
 const _chatTabIndex = 2;
 
-/// Root app shell hosting the Home / Scanner / AI Chat / Profile tabs behind
-/// the shared bottom navigation bar.
+
 class MainShellScreen extends StatefulWidget {
   const MainShellScreen({super.key});
 

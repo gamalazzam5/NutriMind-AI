@@ -3,7 +3,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../../core/constants/auth_constants.dart';
 
-/// Thin wrapper around the Firebase Auth and Google Sign-In SDKs.
 class AuthRemoteDataSource {
   AuthRemoteDataSource(this._firebaseAuth, this._googleSignIn);
 

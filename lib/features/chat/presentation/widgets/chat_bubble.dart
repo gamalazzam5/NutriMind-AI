@@ -9,8 +9,7 @@ import '../../../../core/theme/app_radius.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../domain/entities/chat_message_entity.dart';
 
-/// Chat bubble for a single message, styled distinctly for the user vs the
-/// AI assistant. Renders `**bold**` markers in [ChatMessageEntity.text].
+
 class ChatBubble extends StatelessWidget {
   const ChatBubble({super.key, required this.message, this.avatarAsset});
 
@@ -137,7 +136,6 @@ class _Bubble extends StatelessWidget {
   }
 }
 
-/// Renders text containing `**bold**` markers with mixed font weights.
 class _RichBoldText extends StatelessWidget {
   const _RichBoldText({required this.text, required this.baseStyle});
 

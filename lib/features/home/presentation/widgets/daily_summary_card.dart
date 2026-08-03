@@ -8,7 +8,6 @@ import '../../data/models/macro_model.dart';
 import 'calorie_progress_ring.dart';
 import 'macro_chip.dart';
 
-/// Bento-style card showing the calorie ring and macro breakdown for today.
 class DailySummaryCard extends StatelessWidget {
   const DailySummaryCard({
     super.key,

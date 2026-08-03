@@ -37,8 +37,6 @@ import '../meal_log/domain/usecases/log_meal_usecase.dart';
 
 final getIt = GetIt.instance;
 
-/// Registers app-wide dependencies. Feature modules add their own
-/// `init{Feature}Dependencies()` calls here as they're scaffolded.
 Future<void> initDependencies() async {
   getIt.registerLazySingleton<Dio>(() {
     final dio = Dio(

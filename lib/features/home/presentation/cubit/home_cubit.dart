@@ -14,8 +14,7 @@ class HomeState {
   final List<LoggedMealEntity> recentMeals;
 }
 
-/// Keeps Home's "Recent Meals" row in sync with meals logged from the
-/// scanner, persisted in the local meal-log Hive box.
+
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit(this._getLoggedMeals) : super(HomeState(recentMeals: _recent(_getLoggedMeals))) {
     _subscription = _getLoggedMeals.watch().listen((_) {

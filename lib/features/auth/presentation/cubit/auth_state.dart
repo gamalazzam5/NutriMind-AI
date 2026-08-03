@@ -11,9 +11,7 @@ class AuthInitial extends AuthState {
 class AuthLoading extends AuthState {
   const AuthLoading({this.isGoogle = false});
 
-  /// True when this loading state was triggered by Google sign-in, so the
-  /// UI can show the spinner inside the Google button instead of the main
-  /// submit button.
+
   final bool isGoogle;
 }
 

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-/// Corner-bracket viewfinder with an animated scanning line, shown while
-/// the camera frame is centered on food.
 class ScannerFrameOverlay extends StatefulWidget {
   const ScannerFrameOverlay({super.key, this.animate = true});
 

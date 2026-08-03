@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 
-/// Small circular gauge showing the AI-estimated health score (0-100).
 class HealthScoreBadge extends StatelessWidget {
   const HealthScoreBadge({super.key, required this.score});
 

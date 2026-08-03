@@ -1,4 +1,3 @@
-/// A meal that was logged after an AI scan, persisted locally.
 class LoggedMealEntity {
   final String id;
   final String foodName;

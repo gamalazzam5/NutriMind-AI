@@ -1,6 +1,4 @@
-/// Maps the JSON body returned by the `chat-support` n8n webhook:
-/// `{ success, reply, conversationId, type, timestamp }` on success, or
-/// `{ success: false, error, code }` on failure.
+
 class ChatResponseModel {
   final bool success;
   final String? reply;

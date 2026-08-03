@@ -2,7 +2,6 @@ import 'package:hive/hive.dart';
 
 import '../models/logged_meal_hive_model.dart';
 
-/// Reads/writes logged meals in the local Hive box.
 class MealLogLocalDataSource {
   MealLogLocalDataSource(this._box);
 

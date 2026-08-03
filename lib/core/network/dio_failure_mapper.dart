@@ -2,8 +2,6 @@ import 'package:dio/dio.dart';
 
 import '../error/failures.dart';
 
-/// Maps a caught error from a Dio call to a typed [Failure], used at the
-/// data-layer boundary of every remote repository.
 Failure mapDioException(Object error) {
   if (error is! DioException) {
     return const UnknownFailure('Something went wrong. Please try again.');

@@ -1,5 +1,4 @@
-/// Formats a logged-meal timestamp as a short, locale-agnostic label,
-/// e.g. "8:30 AM", "Yesterday • 1:15 PM", "3/12 • 8:30 AM".
+
 String formatMealTimestamp(DateTime dateTime) {
   final now = DateTime.now();
   final hour12 = dateTime.hour % 12 == 0 ? 12 : dateTime.hour % 12;

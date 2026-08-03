@@ -5,8 +5,7 @@ import '../../../../core/network/dio_response_parser.dart';
 import '../../../../core/utils/image_encoding.dart';
 import '../models/chat_response_model.dart';
 
-/// Calls the `chat-support` n8n webhook, which detects text vs. image input
-/// and routes it to Gemini / Gemini Vision.
+
 class ChatRemoteDataSource {
   ChatRemoteDataSource(this._dio);
 

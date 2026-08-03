@@ -10,8 +10,7 @@ import '../theme/app_radius.dart';
 import '../theme/app_text_styles.dart';
 import '../utils/date_format.dart';
 
-/// Meal thumbnail card used in the horizontally scrolling "Recent Meals" row
-/// on Home and (as a grid) on the meal History screen.
+
 class MealThumbCard extends StatelessWidget {
   const MealThumbCard({
     super.key,

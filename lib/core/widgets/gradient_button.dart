@@ -6,10 +6,6 @@ import '../theme/app_radius.dart';
 import '../theme/app_shadows.dart';
 import '../theme/app_text_styles.dart';
 
-/// Pill-shaped gradient CTA button shared across features.
-///
-/// Pass [height] as `null` to size the button to its content padding
-/// (e.g. the compact onboarding CTAs) instead of a fixed height.
 class GradientButton extends StatelessWidget {
   const GradientButton({
     super.key,

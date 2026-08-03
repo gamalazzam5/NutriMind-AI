@@ -17,12 +17,8 @@ import '../widgets/daily_summary_card.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key, this.onScanFoodTap, this.onAskAiTap});
 
-  /// Switches the shell to the Scanner tab. Null falls back to a snackbar
-  /// (used when Home is previewed outside the shell).
-  final VoidCallback? onScanFoodTap;
 
-  /// Switches the shell to the AI Chat tab. Null falls back to a snackbar
-  /// (used when Home is previewed outside the shell).
+  final VoidCallback? onScanFoodTap;
   final VoidCallback? onAskAiTap;
 
   @override

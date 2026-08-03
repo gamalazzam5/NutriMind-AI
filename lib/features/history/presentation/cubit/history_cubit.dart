@@ -12,7 +12,6 @@ class HistoryState {
   final List<LoggedMealEntity> meals;
 }
 
-/// Lists every meal logged from the AI scanner, newest first.
 class HistoryCubit extends Cubit<HistoryState> {
   HistoryCubit(this._getLoggedMeals) : super(HistoryState(meals: _load(_getLoggedMeals))) {
     _subscription = _getLoggedMeals.watch().listen((_) {

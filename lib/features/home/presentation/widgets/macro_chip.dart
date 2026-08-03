@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../data/models/macro_model.dart';
 
-/// Small pill card showing a macro's label, progress bar, and current/target.
 class MacroChip extends StatelessWidget {
   const MacroChip({
     super.key,

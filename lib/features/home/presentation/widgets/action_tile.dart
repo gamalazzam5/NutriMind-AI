@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/theme/app_radius.dart';
 import '../../../../core/theme/app_text_styles.dart';
 
-/// Bento action tile used for "Scan Food" and "Ask AI" quick actions.
 class ActionTile extends StatelessWidget {
   const ActionTile({
     super.key,

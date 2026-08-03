@@ -6,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 
-/// Circular ring showing calories consumed against the daily target.
 class CalorieProgressRing extends StatelessWidget {
   const CalorieProgressRing({
     super.key,

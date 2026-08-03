@@ -8,8 +8,7 @@ import '../../../../core/theme/app_text_styles.dart';
 import '../../domain/entities/scan_result_entity.dart';
 import 'health_score_badge.dart';
 
-/// Bottom sheet showing the AI scan's identified meal and macro breakdown,
-/// with a CTA to log it.
+
 class ScanResultSheet extends StatelessWidget {
   const ScanResultSheet({super.key, required this.result, required this.onLog});
 

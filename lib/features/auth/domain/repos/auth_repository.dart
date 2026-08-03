@@ -4,7 +4,6 @@ import '../../../../core/error/failures.dart';
 import '../entities/user_entity.dart';
 
 abstract class AuthRepository {
-  /// The currently signed-in user, or `null` if there is no active session.
   UserEntity? get currentUser;
 
   Future<Either<Failure, UserEntity>> signInWithEmail({

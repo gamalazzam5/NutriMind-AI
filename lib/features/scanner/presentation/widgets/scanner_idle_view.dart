@@ -6,7 +6,6 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_radius.dart';
 import '../../../../core/theme/app_text_styles.dart';
 
-/// Full-screen call-to-action shown before a scan has been captured.
 class ScannerIdleView extends StatelessWidget {
   const ScannerIdleView({
     super.key,

@@ -2,8 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../error/failures.dart';
 
-/// Maps a caught error from a Firebase Auth call to a typed [Failure], used
-/// at the data-layer boundary of the auth repository.
 Failure mapFirebaseAuthException(Object error) {
   if (error is! FirebaseAuthException) {
     return const UnknownFailure('Something went wrong. Please try again.');
