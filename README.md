@@ -1,17 +1,17 @@
-# NutriMind
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/ee50fa53-f938-437e-b3c3-165a44d77c8e" /># NutriMind
 
-NutriMind is a Flutter mobile app that helps users track their nutrition through AI-powered food scanning and a conversational chatbot. Users authenticate, scan meals to get nutritional insights, log meals to a history, and chat with an AI assistant for nutrition support — all wrapped in a localized (English/Arabic), animated, mobile-first UI.
+NutriMind is a Flutter mobile app that helps users track their nutrition through AI-powered food scanning and a conversational chatbot. Users authenticate, scan meals to get nutritional insights, log meals to a history, and chat with an AI assistant for nutrition support  all wrapped in a localized (English/Arabic), animated, mobile-first UI.
 
 ## Features
 
-- **Onboarding** — first-run walkthrough screens introducing the app.
-- **Authentication** — email/password sign up & sign in, Google Sign-In, sign out, powered by Firebase Auth.
-- **Home dashboard** — daily calorie/macro summary with a progress ring and quick action tiles.
-- **Food scanner** — capture or pick a food photo, send it to an AI backend for analysis, and view a health score, macros, and nutritional breakdown.
-- **Meal history** — locally persisted log of scanned/logged meals (via Hive) with a browsable history screen.
-- **AI chat assistant** — text and image-based conversation with an AI nutrition assistant.
-- **Profile & settings** — user stats, language picker (easy_localization), and account settings.
-- **Localization** — English and Arabic support via `easy_localization` / `flutter_localizations`.
+- **Onboarding**  first-run walkthrough screens introducing the app.
+- **Authentication**  email/password sign up & sign in, Google Sign-In, sign out, powered by Firebase Auth.
+- **Home dashboard**  daily calorie/macro summary with a progress ring and quick action tiles.
+- **Food scanner**  capture or pick a food photo, send it to an AI backend for analysis, and view a health score, macros, and nutritional breakdown.
+- **Meal history**  locally persisted log of scanned/logged meals (via Hive) with a browsable history screen.
+- **AI chat assistant**  text and image-based conversation with an AI nutrition assistant.
+- **Profile & settings**  user stats, language picker (easy_localization), and account settings.
+- **Localization**  English and Arabic support via `easy_localization` / `flutter_localizations`.
 
 ## Tech Stack
 
